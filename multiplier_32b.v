@@ -1,0 +1,12 @@
+//multiplier
+
+module Multiplier 
+(
+    input  logic [31:0] (in0),
+    input  logic [31:0] (in1),
+    output logic [31:0] (prod)
+);
+
+prod = in0 * in1;
+
+endmodule
