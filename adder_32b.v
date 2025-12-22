@@ -8,6 +8,6 @@ module adder_32b
     output logic [31:0] sum
 );
 
-sum = in0 + in1;
+assign sum = in0 + in1;
 
 endmodule
