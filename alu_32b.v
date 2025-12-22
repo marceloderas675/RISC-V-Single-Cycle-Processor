@@ -1,8 +1,8 @@
 //alu to perform arithmetic and binary operations
 
-`include "Single Cycle Processor/adder_32b"
-`include "Single Cycle Processor/TWOBYONEMUX"
-`include "Single Cycle Processor/comparator_32b"
+`include "adder_32b.v"
+`include "Twoby1mux.v"
+`include "comparator_32b.v"
 
 module alu_32b 
 
@@ -36,7 +36,7 @@ adder_32b sum
 TWOBYONEMUX mux00 
 (
     .in0 (out1),
-    .in1 (out2)
+    .in1 (out2),
     .sel (alu_sel),
     .out (out)
 );

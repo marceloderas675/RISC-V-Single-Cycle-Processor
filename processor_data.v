@@ -19,6 +19,8 @@ module datapath
 
 );
 
+//pc
+
 wire [31:0] incrementFour;
 wire [31:0] incrementedByFour;
 
@@ -38,6 +40,23 @@ adder_32b plusFour
     .in0 (incrementFour),
     .in1 (32'b100),
     .sum (incrementedByFour)
+);
+
+//choose instruction
+
+register_file_32b regfile 
+(
+    .clk (),
+    .wen (),
+    
+);
+
+TWOBYONEMUX readOrIMM 
+(
+    .in0 (),
+    .in1 (),
+    .sel (),
+    .out ()
 );
 
 endmodule

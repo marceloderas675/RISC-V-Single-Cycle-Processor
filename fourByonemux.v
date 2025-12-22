@@ -10,17 +10,19 @@ module FOURBYONEMUX
     output logic out
 );
 
-if (sel == 2'b00) begin
-    out = in0;
-end
-else if (sel == 2'b01) begin
-    out = in1;
-end
-else if (sel == 2'b10) begin
-    out = in2;
-end
-else if (sel == 2'b11) begin
-    out = in3
+always @(*) begin
+    if (sel == 2'b00) begin
+        out = in0;
+    end
+    else if (sel == 2'b01) begin
+        out = in1;
+    end
+    else if (sel == 2'b10) begin
+        out = in2;
+    end
+    else if (sel == 2'b11) begin
+        out = in3
+    end
 end
 
 endmodule

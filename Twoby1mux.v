@@ -8,11 +8,13 @@ module TWOBYONEMUX
     output logic out
 );
 
+always @(*) begin
 if (sel) begin
     out = in1;
 end 
 else begin
     out = in0;
+end
 end
 
 endmodule
