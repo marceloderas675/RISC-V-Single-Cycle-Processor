@@ -6,47 +6,27 @@ module IMMEDIATE_GEN
         input  logic [2:0]  imm_type,
         output logic [31:0] imm
     );
-
-    logic [31:0] prod1;
-    assign prod1[20:0] = {21{inst[31]}};
   
     always_comb begin
-        
-        imm = 'x;
+        case (imm_type)
+            3'b000: // I-type
+                imm = {{20{inst[31]}}, inst[31:20]};
 
-        if (!imm_type[2] && !imm_type[1] && !imm_type[0]) begin //I type
-            imm [31:11] = prod1[20:0];
-            imm[10:5]  = inst[30:25];
-            imm [4:1]   = inst[24:21];
-            imm [0]     = inst[20];
-        end
-        else if (!imm_type[2] && !imm_type[1] && imm_type[0]) begin //S Type
-            imm [31:11] = prod1[20:0];
-            imm [10:5]  = inst[30:25];
-            imm [4:1]   = inst[11:8];
-            imm [0]     = inst[7];
-        end
-        else if (!imm_type[2] && imm_type[1] && !imm_type[0]) begin //J Type
-            imm [31:20] = prod1[11:0];
-            imm [19:12] = inst[19:12];
-            imm [11]    = inst[20];
-            imm [10:5]  = inst[30:25];
-            imm [4:1]   = inst[24:21];
-            imm [0]     = 1'b0;
-        end
-        else if (!imm_type[2] && imm_type[1] && imm_type[0]) begin //B type
-            imm [31:12] =  prod1[19:0];
-            imm [11]    =  inst[7];
-            imm [10:5]  =  inst[30:25];
-            imm [4:1]   =  inst[11:8];
-            imm [0]     =  1'b0;
-        end
-        else if (imm_type[2] && !imm_type[1] && !imm_type[0]) begin //U Type
-            imm [30:20] =  prod1[10:0];
-            imm [19:12] =  inst[19:12];
-            imm [11:0]  =  12'b0;
-            imm [31]    =  inst[31];
-        end
+            3'b001: // S-type
+                imm = {{20{inst[31]}}, inst[31:25], inst[11:7]};
+
+            3'b010: // B-type
+                imm = {{19{inst[31]}}, inst[7], inst[30:25], inst[11:8], 1'b0};
+
+            3'b011: // J-type
+                imm = {{11{inst[31]}}, inst[19:12], inst[20], inst[30:25], inst[24:21], 1'b0};
+
+            3'b100: //U-type
+                imm = {inst[31:12], 12'b0};
+
+            default:
+                imm = 32'b0;
+        endcase
 
     end 
 
